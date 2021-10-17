@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Github文件获取 HTML版</title>
+		<script src="https://cdn.jsdelivr.net/gh/jquery/jquery@3.6.0/dist/jquery.min.js"></script>
+		<script src="./config.js"></script>
+		<script src="./app.js"></script>
+		<style>
+			.main {
+				width:50%;
+				margin:auto;
+			}
+			.dir {
+				display:flex;
+				justify-content: space-between;
+				margin:3px;
+			}
+			.file {
+				display:flex;
+				justify-content: space-between;
+				margin:3px;
+			}
+			p {
+				margin:0px;
+			}
+			.dirname:link{text-decoration:none;color:orange}
+			.dirname:active{text-decoration:none;color:skyblue}
+			.dirname:hover{text-decoration:none;color:skyblue!important;}
+			.dirname:visited{text-decoration:none;color:orange}
+			.filename:link{text-decoration:none;color:green}
+			.filename:active{text-decoration:none;color:red}
+			.filename:hover{text-decoration:none;color:red!important;}
+			.filename:visited{text-decoration:none;color:green}
+			.download:link{color:green}
+			.download:active{color:red}
+			.download:hover{color:red!important;}
+			.download:visited{color:green}
+		</style>
+	</head>
+	<body>
+		<div id="main" class="main">
+			
+		</div>
+		<script>
+			document.getElementById("main").innerHTML=
+			GetFromGithub.GetFile($_GET["repo"],$_GET["path"]==undefined?"/":$_GET["path"]);
+		</script>
+	</body>
+</html>

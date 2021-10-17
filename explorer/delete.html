@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Github文件删除 HTML版</title>
+		<script src="https://cdn.jsdelivr.net/gh/jquery/jquery@3.6.0/dist/jquery.min.js"></script>
+		<script src="./config.js"></script>
+		<script src="./app.js"></script>
+		<style>
+			.main {
+				width:50%;
+				margin:auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="main" class="main">
+
+		</div>
+		<script>
+			document.getElementById("main").innerHTML=DeleteGithub.GetText();
+		</script>
+	</body>
+</html>
