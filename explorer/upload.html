@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Github文件上传 HTML版</title>
+		<script src="https://cdn.jsdelivr.net/gh/jquery/jquery@3.6.0/dist/jquery.min.js"></script>
+	</head>
+	<body>
+		<input type="file" id="file" name="file"/>
+		<button onclick="upload()">提交</button>
+		<script>
+			const USER="LittleYang0531";
+			const REPO="Photo";
+			const MAIL="littleyang0531@outlook.com";
+			const TOKEN="ghp_l9G42lEY4L2X"+"hh9y5AhBySh2sNTTgi3rrbMK";
+			
+			var input=document.getElementById("file");
+			if (typeof(FileReader)==='undefined') {
+			    result.innerHTML="抱歉，你的浏览器不支持FileReader！";
+			    input.setAttribute('disabled','disabled');
+			} 
+			else {
+			    input.addEventListener('change',readFile,false);
+			}
+			
+			function readFile() {
+			    var reader = new FileReader();
+			    reader.readAsDataURL(input.files[0]);
+				console.log(input.files[0]);
+			    reader.onload = function () { 
+			        upload(input.files[0].name,this.result);
+			    }
+			}
+			function upload(filename,content) {
+				var url="https://api.github.com/repos/"+USER+"/"+REPO+"/contents/"+filename;
+				
+				var data={message:"Upload By "+USER,committer:{name:USER,email:MAIL},content:(content.split(","))[1]};
+				data=JSON.stringify(data);console.log(data);
+				
+				$.ajax({
+					url:url,
+					type:'PUT',
+					data:data,
+					headers:{
+						"Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+						"Accept-Language":"zh-CN,en-US;q=0.7,en;q=0.3",
+						"Authorization":'token '+TOKEN,
+					},
+					cache: false,
+					processData: false,
+					contentType: false,
+					success:function(message) {
+						alert("提交成功");
+					},
+					error:function(jqXHR,textStatus,errorThrown)
+					{
+					    console.log(jqXHR.responseText);
+					    console.log(jqXHR.status);
+					    console.log(jqXHR.readyState);
+					    console.log(jqXHR.statusText);
+					    console.log(textStatus);
+					    console.log(errorThrown);
+					}
+				});
+			}
+		</script>
+	</body>
+</html>
