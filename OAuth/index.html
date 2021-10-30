@@ -14,7 +14,7 @@
             console.log($_GET["code"]);
             var url="https://github.com/login/oauth/access_token";
 	    var data={client_id:clientid,client_secret:secret,code:$_GET["code"]};
-            var content=SendAjax(url,"POST",JSON.stringify(data),{'Content-Type':'application/json;charset=utf8',Accept:"application/json"});
+            var content=SendAjax(url,"GET",JSON.stringify(data),{Accept:"application/json"});
             if (content==null) {
                 console.log("Failed to get user access token!");
                 exit();
