@@ -29,18 +29,17 @@ var headers= {
 // ****************************************************
 
 // Send Ajax Request
-function SendAjax(url,method,data,headers=headers) {
+function SendAjax(url,method,data,header=headers) {
 	var res;
 	$.ajax({
 		async:false,
 		url:url,
 		type:method,
 		data:data,
-		headers:headers,
+		headers:header,
 		cache:false,
 		processData:false,
 		contentType:false,
-		dataType: 'JSONP',
 		success:function(message) {
 			console.log(message);
 			res=message;
