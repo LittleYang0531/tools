@@ -29,7 +29,7 @@ var headers= {
 // ****************************************************
 
 // Send Ajax Request
-function SendAjax(url,method,data) {
+function SendAjax(url,method,data,headers=headers) {
 	var res;
 	$.ajax({
 		async:false,
