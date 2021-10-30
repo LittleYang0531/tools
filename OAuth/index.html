@@ -12,7 +12,7 @@
 
         if ($_GET["code"]!=undefined) {
             console.log($_GET["code"]);
-            var url="https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token?client_id="+clientid+"&client_secret"+secret+"&code="+$_GET["code"];
+            var url="https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token?client_id="+clientid+"&client_secret="+secret+"&code="+$_GET["code"];
 	    var data={};
             var content=SendAjax(url,"GET",null,{Accept:"application/json"});
             if (content==null) {
