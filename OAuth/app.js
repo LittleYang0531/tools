@@ -40,6 +40,7 @@ function SendAjax(url,method,data) {
 		cache:false,
 		processData:false,
 		contentType:false,
+		dataType: 'JSONP',
 		success:function(message) {
 			console.log(message);
 			res=message;
