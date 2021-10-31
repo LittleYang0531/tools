@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=utf-8">
+    <title>LittleYang0531 | 管理后台</title>
+	<script src="https://cdn.jsdelivr.net/gh/jquery/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="./config.js"></script>
+    <script src="./app.js"></script>
+    <link href='https://css.gg/ghost.css' rel='stylesheet'>
+    <link href='https://css.gg/add.css' rel='stylesheet'>
+    <link href='https://css.gg/file.css' rel='stylesheet'>
+    <link href='https://css.gg/attachment.css' rel='stylesheet'>
+    <link href='https://css.gg/link.css' rel='stylesheet'>
+    <style>
+        .flex {
+            display:flex;
+            display:-webkit-flex;
+        }
+        p {
+            margin:0px;
+        }
+        #app {width:100%;}
+        #main-left {
+            width:200px;
+        }
+        #main-left > button {
+            width:100%;
+            height:50px;
+            font-size:16px;
+            border:0px;
+            cursor:pointer;
+            transition:background-color 0.2s;
+            padding-left:50px;
+            padding-top:14px;
+        }
+        #main-left > button:hover {
+            background-color:lightskyblue;
+        }
+</style>
+</head>
+<body>
+    <script>
+        // if ($_GET["code"]!=undefined) LoginGithub.Login();
+        // else if (!LoginGithub.CheckLoginState()) LoginGithub.Login();
+        // else {
+        //     var dat=LoginGithub.CheckAuthor();
+        //     if (dat.admin!=dat.login) {
+        //         alert("用户 @"+dat.login+", 您无权访问此页面");
+        //         location.replace("https://blog.littleyang.ml");
+        //     }
+        // }
+    </script>
+    <div id="app" class="flex">
+        <div id="main-left"> 
+            <div id="left-avatar">
+
+            </div>
+            <button id="left-main" class="flex" onclick="change('main')">
+                <div class="gg-ghost" style="--ggs: 1.2;position:relative;top:3px;"></div>
+                <p>&nbsp;&nbsp;博客数据</p>
+            </button>
+            <button id="left-create" class="flex" onclick="change('create')">
+                <div class="gg-add" style="--ggs: 1.2;position:relative;left:-2px"></div>
+                <p style="--ggs: 1.2;position:relative;left:1px">&nbsp;新建文章</p>
+            </button>
+            <button id="left-admin" class="flex" onclick="change('admin')">
+                <div class="gg-file" style="--ggs: 1.2;position:relative;top:3px;left:3px;"></div>
+                <p>&nbsp;&nbsp;&nbsp;管理文章</p>
+            </button>    
+            <button id="left-type" class="flex" onclick="change('type')">
+                <div class="gg-attachment" style="--ggs: 1.2;position:relative;left:3px;"></div>
+                <p>&nbsp;&nbsp;&nbsp;分类管理</p>
+            </button>   
+            <button id="left-friend" class="flex" onclick="change('friend')">
+                <div class="gg-link" style="--ggs: 1.2;position:relative;top:10px;left:7px"></div>
+                <p style="position:relative;left: 1px;">&nbsp;&nbsp;&nbsp;&nbsp;友链管理</p>
+            </button>   
+            <button id="left-tools" class="flex" onclick="change('tools')">
+                <p>工具箱</p>
+            </button> 
+        </div>
+    </div>
+</body>
