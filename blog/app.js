@@ -28,6 +28,18 @@ function setCookie(cname,cvalue,exdays)
 	d.setTime(d.getTime()+exdays);
 	var expires = "expires="+d.toGMTString();
 	document.cookie = cname + "=" + cvalue + "; " + expires;
+	flushCookie();
+}
+function flushCookie() {
+	$_COOKIE = (function(){
+		var strcookie = document.cookie;
+		var arrcookie = strcookie.split(";"), dat=new Object();
+		for ( var i = 0; i < arrcookie.length; i++) {
+			var arr = arrcookie[i].split("=");
+			dat[arr[0]]=arr[1];
+			return dat;
+		}
+	})();
 }
 var headers= {
 	"Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",

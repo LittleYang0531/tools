@@ -10,7 +10,13 @@
     <link href='https://css.gg/file.css' rel='stylesheet'>
     <link href='https://css.gg/attachment.css' rel='stylesheet'>
     <link href='https://css.gg/link.css' rel='stylesheet'>
+    <link href='https://css.gg/toolbox.css' rel='stylesheet'>
+    <link href='https://css.gg/log-out.css' rel='stylesheet'>
     <style>
+        body {
+            padding:0px;
+            margin:0px;
+        }
         .flex {
             display:flex;
             display:-webkit-flex;
@@ -20,7 +26,8 @@
         }
         #app {width:100%;}
         #main-left {
-            width:200px;
+            width:260px;
+            background-color: lightblue;
         }
         #main-left > button {
             width:100%;
@@ -29,11 +36,29 @@
             border:0px;
             cursor:pointer;
             transition:background-color 0.2s;
-            padding-left:50px;
+            padding-left:80px;
             padding-top:14px;
+            background-color:rgba(255,255,255,0);
         }
         #main-left > button:hover {
             background-color:lightskyblue;
+        }
+        #left-avatar {
+            padding-top:50px;
+            padding-bottom:20px;
+            width:100%;float:center;
+        }
+        .avatar {
+            width:80px;
+            height:80px;
+            border:1px solid;
+            border-radius:40px;
+            margin-bottom:6px;
+        }
+
+        #main-right {
+            width:1px;
+            flex-grow:1000000;
         }
 </style>
 </head>
@@ -54,6 +79,17 @@
             <div id="left-avatar">
 
             </div>
+            <script>
+            	var url="https://api.github.com/user";
+        		var header={"Authorization":'token '+$_COOKIE["access_token"]};
+        		var content=SendAjax(url,"GET",null,header);
+        		if (content==null) alert("数据获取失败");
+        		else {
+        			document.getElementById("left-avatar").innerHTML+=
+        			"<center><img class='avatar' src='"+content["avatar_url"]+"'/></center>"+
+					"<center><p style='margin:auto;font-size:17px;'>"+content["login"]+"</p></center>";
+				}
+            </script>
             <button id="left-main" class="flex" onclick="change('main')">
                 <div class="gg-ghost" style="--ggs: 1.2;position:relative;top:3px;"></div>
                 <p>&nbsp;&nbsp;博客数据</p>
@@ -75,8 +111,41 @@
                 <p style="position:relative;left: 1px;">&nbsp;&nbsp;&nbsp;&nbsp;友链管理</p>
             </button>   
             <button id="left-tools" class="flex" onclick="change('tools')">
-                <p>工具箱</p>
+                <div class="gg-toolbox" style="--ggs: 1.2;position:relative;top:4px;"></div>
+                <p>&nbsp;&nbsp;&nbsp;工具箱</p>
             </button> 
+            <button id="left-exit" class="flex" onclick="LoginGithub.Logout();">
+                <div class="gg-log-out" style="--ggs: 1.2;position:relative;top:4px;left:12px;"></div>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;退出登录</p>
+            </button>
         </div>
+        <div id="main-right">
+
+        </div>
+        <script>
+            function change(name) {
+                // document.getElementById("right-main").style.display="none";
+                // document.getElementById("right-create").style.display="none";
+                // document.getElementById("right-admin").style.display="none";
+                // document.getElementById("right-type").style.display="none";
+                // document.getElementById("right-friend").style.display="none";
+                // document.getElementById("right-tools").style.display="none";
+                // document.getElementById("right-"+name).style.display="none";
+                document.getElementById("left-main").style.backgroundColor="";
+                document.getElementById("left-create").style.backgroundColor="";
+                document.getElementById("left-admin").style.backgroundColor="";
+                document.getElementById("left-type").style.backgroundColor="";
+                document.getElementById("left-friend").style.backgroundColor="";
+                document.getElementById("left-tools").style.backgroundColor="";
+                document.getElementById("left-"+name).style.backgroundColor="lightskyblue";
+            }
+            change("main");
+            document.getElementById("main-left").style.minHeight=window.innerHeight+"px";
+            document.getElementById("main-right").style.minHeight=window.innerHeight+"px";
+            window.onresize=function() {
+                document.getElementById("main-left").style.minHeight=window.innerHeight+"px";
+                document.getElementById("main-right").style.minHeight=window.innerHeight+"px"; 
+            }
+        </script>
     </div>
 </body>
