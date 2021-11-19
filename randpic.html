@@ -13,6 +13,6 @@
 		var res=SendAjax(url,'GET',null);
         var id=Math.floor(Math.random()*(res.length));
         while (res[id]["size"]>=20*1024*1024) id=Math.floor(Math.random()*(res.length));
-        window.location.href="https://cdn.jsdelivr.net/gh/"+USER+"/Photo/"+res[id]["path"];
+        window.location.replace("https://cdn.jsdelivr.net/gh/"+USER+"/Photo/"+res[id]["path"]);
     </script>
 </body>
