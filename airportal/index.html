@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <meta charset="UTF-8">
+    <title>文件临时存储</title>
+    <script src="./jQuery.min.js"></script>
+    <script src="./app.js"></script>
+</html>
+<body>
+    <div id="progress">
+        <div class="progress-item"></div>
+    </div>
+    <style>
+        #progress {
+        height: 10px;
+        width: 300px;
+        border: 1px solid gold;
+        position: relative;
+        border-radius: 5px;
+        }
+        
+        #progress .progress-item {
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: chartreuse;
+            border-radius: 5px;
+            transition: width .3s linear;
+        }
+    </style>
+    <div><input type="file" id="file"/><button onclick="upload()">发送</button></div>
+    <div><input type="text" id="download"/><button onclick="download()">接收</button></div>
+    <script>
+        function randomNum(minNum,maxNum){ 
+            switch(arguments.length){ 
+                case 1: 
+                    return parseInt(Math.random()*minNum+1,10); 
+                break; 
+                case 2: 
+                    return parseInt(Math.random()*(maxNum-minNum+1)+minNum,10); 
+                break; 
+                    default: 
+                        return 0; 
+                    break; 
+            } 
+        } 
+        function upload() {
+            var obj=GetFromGithub.GetFile("tools","/airportal");
+            var val=new Array;
+            for (i=0;i<obj.length;i++) {
+                if (obj[i]["type"]=="dir") val.push(obj[i]["name"]);
+            } var num=0; while (1) {
+                var tmp=randomNum(10000,999999);
+                if (val.indexOf(tmp)===-1) {
+                    num=tmp; break;
+                }
+            } console.log(num); UploadGithub.ReadFile(num);
+        }
+        function download() {
+            id=document.getElementById("download").value;
+
+        }
+    </script>
+</body>
