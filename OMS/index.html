@@ -99,9 +99,11 @@
                     css:"./Katex/katex.min"
                 };
             });
+	    var sha = null;
             function edit(path) {
                 // if (editor!=null) editor;
                 onedit=path;var url="https://api.github.com/";
+		sha = GetFileSHA(REPO,onedit);
                 document.getElementById("title").innerHTML=onedit;
                 var markdown=SendAjax("https://api.github.com/repos/"+USER+"/"+REPO+"/contents"+path)["content"];
                 markdown=Base64.decode(markdown);
@@ -116,7 +118,7 @@
                 if (onedit=="") return false;
                 var markdown=editor.getMarkdown();
                 markdown=Base64.encode(markdown);console.log(markdown);
-                var data={message:"Upload By "+USER,committer:{name:USER,email:MAIL},content:markdown,sha:GetFileSHA(REPO,onedit)};
+                var data={message:"Upload By "+USER,committer:{name:USER,email:MAIL},content:markdown,sha:sha};
 		        data=JSON.stringify(data);
                 var url="https://api.github.com/repos/"+USER+"/"+REPO+"/contents"+onedit;
                 layer.msg("Saving...");
