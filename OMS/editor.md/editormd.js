@@ -4225,7 +4225,7 @@
         js  : "//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min"
     };
     
-    editormd.kaTeXLoaded = false;
+    editormd.kaTeXLoaded = true;
     
     /**
      * 加载KaTeX文件
