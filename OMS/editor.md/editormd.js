@@ -2,12 +2,13 @@
  * Editor.md
  *
  * @file        editormd.js 
- * @version     v1.5.0 
+ * @version     v1.6.0 
  * @description Open source online markdown editor.
  * @license     MIT License
  * @author      Pandao
- * {@link       https://github.com/pandao/editor.md}
- * @updateTime  2015-06-09
+ * @updater     LittleYang0531
+ * {@link       https://github.com/LittleYang0531/editor.md}
+ * @updateTime  2022-04-01
  */
 
 ;(function(factory) {
@@ -59,7 +60,7 @@
     };
     
     editormd.title        = editormd.$name = "Editor.md";
-    editormd.version      = "1.5.0";
+    editormd.version      = "1.6.0";
     editormd.homePage     = "https://pandao.github.io/editor.md/";
     editormd.classPrefix  = "editormd-";
     
@@ -98,7 +99,7 @@
         markdown             : "",             // Markdown source code
         appendMarkdown       : "",             // if in init textarea value not empty, append markdown to textarea
         width                : "100%",
-        height               : "100%",
+        height               : "600px",
         path                 : "./lib/",       // Dependents module file directory
         pluginPath           : "",             // If this empty, default use settings.path + "../plugins/"
         delay                : 300,            // Delay parse markdown to html, Uint : ms
@@ -106,7 +107,7 @@
         watch                : true,
         placeholder          : "Enjoy Markdown! coding now...",
         gotoLine             : true,
-        codeFold             : false,
+        codeFold             : true,
         autoHeight           : false,
 		autoFocus            : true,
         autoCloseTags        : true,
@@ -130,7 +131,7 @@
         dialogMaskBgColor    : "#fff",
         dialogMaskOpacity    : 0.1,
         fontSize             : "13px",
-        saveHTMLToTextarea   : false,
+        saveHTMLToTextarea   : true,
         disabledKeyMaps      : [],
         
         onload               : function() {},
@@ -152,22 +153,22 @@
         uploadCallbackURL    : "",
         
         toc                  : true,           // Table of contents
-        tocm                 : false,           // Using [TOCM], auto create ToC dropdown menu
+        tocm                 : true,           // Using [TOCM], auto create ToC dropdown menu
         tocTitle             : "",             // for ToC dropdown menu btn
-        tocDropdown          : false,
+        tocDropdown          : true,
         tocContainer         : "",
         tocStartLevel        : 1,              // Said from H1 to create ToC
-        htmlDecode           : false,          // Open the HTML tag identification 
+        htmlDecode           : true,          // Open the HTML tag identification 
         pageBreak            : true,           // Enable parse page break [========]
         atLink               : true,           // for @link
         emailLink            : true,           // for email address auto link
-        taskList             : false,          // Enable Github Flavored Markdown task lists
-        emoji                : false,          // :emoji: , Support Github emoji, Twitter Emoji (Twemoji);
+        taskList             : true,          // Enable Github Flavored Markdown task lists
+        emoji                : true,          // :emoji: , Support Github emoji, Twitter Emoji (Twemoji);
                                                // Support FontAwesome icon emoji :fa-xxx: > Using fontAwesome icon web fonts;
                                                // Support Editor.md logo icon emoji :editormd-logo: :editormd-logo-1x: > 1~8x;
-        tex                  : false,          // TeX(LaTeX), based on KaTeX
-        flowChart            : false,          // flowChart.js only support IE9+
-        sequenceDiagram      : false,          // sequenceDiagram.js only support IE9+
+        tex                  : true,          // TeX(LaTeX), based on KaTeX
+        flowChart            : true,          // flowChart.js only support IE9+
+        sequenceDiagram      : true,          // sequenceDiagram.js only support IE9+
         previewCodeHighlight : true,
                 
         toolbar              : true,           // show/hide toolbar
@@ -495,7 +496,7 @@
         loadQueues : function() {
             var _this        = this;
             var settings     = this.settings;
-            var loadPath     = settings.path;
+            var loadPath     = "./extensions/editor.md/lib/";
                                 
             var loadFlowChartOrSequenceDiagram = function() {
                 
@@ -1119,7 +1120,7 @@
             
             if (settings.toolbar && toolbar.length < 1)
             {            
-                var toolbarHTML = "<div class=\"" + classPrefix + "toolbar\"><div class=\"" + classPrefix + "toolbar-container\"><ul class=\"" + classPrefix + "menu\"></ul></div></div>";
+                var toolbarHTML = "<div class=\"" + classPrefix + "toolbar\" style=\"display: block; position: absolute; width: 100%; left: 0px;\"><div class=\"" + classPrefix + "toolbar-container\"><ul class=\"" + classPrefix + "menu\"></ul></div></div>";
                 
                 editor.append(toolbarHTML);
                 toolbar = this.toolbar = editor.children("." + classPrefix + "toolbar");
@@ -1315,7 +1316,7 @@
                 "<h1><i class=\"editormd-logo editormd-logo-lg editormd-logo-color\"></i> " + editormd.title + "<small>v" + editormd.version + "</small></h1>",
                 "<p>" + this.lang.description + "</p>",
                 "<p style=\"margin: 10px 0 20px 0;\"><a href=\"" + editormd.homePage + "\" target=\"_blank\">" + editormd.homePage + " <i class=\"fa fa-external-link\"></i></a></p>",
-                "<p style=\"font-size: 0.85em;\">Copyright &copy; 2015 <a href=\"https://github.com/pandao\" target=\"_blank\" class=\"hover-link\">Pandao</a>, The <a href=\"https://github.com/pandao/editor.md/blob/master/LICENSE\" target=\"_blank\" class=\"hover-link\">MIT</a> License.</p>",
+                "<p style=\"font-size: 0.85em;\">Copyright &copy; 2015 <a href=\"https://github.com/pandao\" target=\"_blank\" class=\"hover-link\">Pandao</a>. Modified by <a href=\"https://github.com/LittleYang0531\" target=\"_blank\" class=\"hover-link\">LittleYang0531</a>. <a href=\"https://github.com/pandao/editor.md/blob/master/LICENSE\" target=\"_blank\" class=\"hover-link\">MIT</a></p>",
                 "</div>",
                 "<a href=\"javascript:;\" class=\"fa fa-close " + classPrefix + "dialog-close\"></a>",
                 "</div>"
@@ -1369,7 +1370,7 @@
         
         showInfoDialog : function() {
 
-            $("html,body").css("overflow-x", "hidden");
+            // $("html,body").css("overflow-x", "hidden");
             
             var _this       = this;
 			var editor      = this.editor;
@@ -1403,7 +1404,7 @@
          */
         
         hideInfoDialog : function() {            
-            $("html,body").css("overflow-x", "");
+            // $("html,body").css("overflow-x", "");
             this.infoDialog.hide();
             this.mask.hide();
             this.lockScreen(false);
@@ -2627,7 +2628,7 @@
             {
                 state.fullscreen = true;
 
-                $("html,body").css("overflow", "hidden");
+                // $("html,body").css("overflow", "hidden");
                 
                 editor.css({
                     width    : $(window).width(),
@@ -2669,7 +2670,7 @@
                 toolbar.find(".fa[name=fullscreen]").parent().removeClass("active"); 
             }
 
-            $("html,body").css("overflow", "");
+            // $("html,body").css("overflow", "");
 
             editor.css({
                 width    : editor.data("oldWidth"),
@@ -2699,16 +2700,19 @@
             var settings = this.settings;
             
             path = settings.pluginPath + path;
+
+            console.log(define);
             
             if (typeof define === "function") 
             {            
-                if (typeof this[name] === "undefined")
-                {
-                    alert("Error: " + name + " plugin is not found, you are not load this plugin.");
+                // if (typeof this[name] === "undefined")
+                // {
+                //     alert("Error: " + name + " plugin is not found, you are not load this plugin.");
                     
-                    return this;
-                }
-                
+                //     return this;
+                // }
+                console.log(name); console.log(cm);
+
                 this[name](cm);
                 
                 return this;
@@ -2781,7 +2785,7 @@
         
         if (settings.dialogLockScreen) 
         {            
-            $("html,body").css("overflow", "hidden");
+            // $("html,body").css("overflow", "hidden");
             this.resize();
         }
     };
@@ -3069,13 +3073,13 @@
             {
                 alert("settings.tex === false");
                 return this;
-            }
+            } 
             
             var cm        = this.cm;
             var cursor    = cm.getCursor();
             var selection = cm.getSelection();
 
-            cm.replaceSelection("$$" + selection + "$$");
+            cm.replaceSelection("$" + selection + "$");
 
             if(selection === "") {
                 cm.setCursor(cursor.line, cursor.ch + 2);
@@ -3364,7 +3368,7 @@
 
     // Emoji graphics files url path
     editormd.emoji     = {
-        path  : "../plugins/emoji-dialog/emoji",
+        path  : "../extensions/editor.md/plugins/emoji-dialog/emoji/",
         ext   : ".png"
     };
 
@@ -3385,16 +3389,16 @@
     editormd.markedRenderer = function(markdownToC, options) {
         var defaults = {
             toc                  : true,           // Table of contents
-            tocm                 : false,
+            tocm                 : true,
             tocStartLevel        : 1,              // Said from H1 to create ToC  
             pageBreak            : true,
             atLink               : true,           // for @link
             emailLink            : true,           // for mail address auto link
-            taskList             : false,          // Enable Github Flavored Markdown task lists
-            emoji                : false,          // :emoji: , Support Twemoji, fontAwesome, Editor.md logo emojis.
-            tex                  : false,          // TeX(LaTeX), based on KaTeX
-            flowChart            : false,          // flowChart.js only support IE9+
-            sequenceDiagram      : false,          // sequenceDiagram.js only support IE9+
+            taskList             : true,          // Enable Github Flavored Markdown task lists
+            emoji                : true,          // :emoji: , Support Twemoji, fontAwesome, Editor.md logo emojis.
+            tex                  : true,          // TeX(LaTeX), based on KaTeX
+            flowChart            : true,          // flowChart.js only support IE9+
+            sequenceDiagram      : true,          // sequenceDiagram.js only support IE9+
         };
         
         var settings        = $.extend(defaults, options || {});    
@@ -3595,51 +3599,66 @@
         };
 
         markedRenderer.paragraph = function(text) {
+
             var isTeXInline     = /\$(.*)\$/g.test(text);
             var isTeXLine       = /^\$\$(.*)\$\$$/.test(text);
             var isTeXAddClass   = (isTeXLine)     ? " class=\"" + editormd.classNames.tex + "\"" : "";
             var isToC           = (settings.tocm) ? /^(\[TOC\]|\[TOCM\])$/.test(text) : /^\[TOC\]$/.test(text);
             var isToCMenu       = /^\[TOCM\]$/.test(text);
-            
+
             if (!isTeXLine && isTeXInline) 
             {
                 text = text.replace(/(\$([^\$]*)\$)+/g, function($1, $2) {
+                    var x=new RegExp("<em>","g"); $1=$1.replace(x,"_"); $2=$2.replace(x,"_");
+                    x=new RegExp("</em>","g"); $1=$1.replace(x,"_"); $2=$2.replace(x,"_");
                     return "<span class=\"" + editormd.classNames.tex + "\">" + $2.replace(/\$/g, "") + "</span>";
                 });
             } 
             else 
-            {
+            { 
                 text = (isTeXLine) ? text.replace(/\$/g, "") : text;
+                var x=new RegExp("<em>","g"); text=text.replace(x,"_");
+                x=new RegExp("</em>","g"); text=text.replace(x,"_");
             }
             
             var tocHTML = "<div class=\"markdown-toc editormd-markdown-toc\">" + text + "</div>";
-            
+
             return (isToC) ? ( (isToCMenu) ? "<div class=\"editormd-toc-menu\">" + tocHTML + "</div><br/>" : tocHTML )
                            : ( (pageBreakReg.test(text)) ? this.pageBreak(text) : "<p" + isTeXAddClass + ">" + this.atLink(this.emoji(text)) + "</p>\n" );
         };
 
         markedRenderer.code = function (code, lang, escaped) { 
-
             if (lang === "seq" || lang === "sequence")
             {
                 return "<div class=\"sequence-diagram\">" + code + "</div>";
-            } 
+            }
             else if ( lang === "flow")
             {
                 return "<div class=\"flowchart\">" + code + "</div>";
             } 
             else if ( lang === "math" || lang === "latex" || lang === "katex")
             {
+                var x=new RegExp("<em>","g"); code=code.replace(x,"_");
+                x=new RegExp("</em>","g"); code=code.replace(x,"_");
                 return "<p class=\"" + editormd.classNames.tex + "\">" + code + "</p>";
             } 
             else 
             {
-
                 return marked.Renderer.prototype.code.apply(this, arguments);
             }
         };
 
         markedRenderer.tablecell = function(content, flags) {
+            var isTeXInline = /\$(.*)\$/g.test(content);
+            if (isTeXInline) 
+            {
+                content = content.replace(/(\$([^\$]*)\$)+/g, function($1, $2) {
+                    var x=new RegExp("<em>","g"); $1=$1.replace(x,"_"); $2=$2.replace(x,"_");
+                    x=new RegExp("</em>","g"); $1=$1.replace(x,"_"); $2=$2.replace(x,"_");
+                    return "<span class=\"" + editormd.classNames.tex + "\">" + $2.replace(/\$/g, "") + "</span>";
+                });
+            } 
+
             var type = (flags.header) ? "th" : "td";
             var tag  = (flags.align)  ? "<" + type +" style=\"text-align:" + flags.align + "\">" : "<" + type + ">";
             
@@ -3647,6 +3666,17 @@
         };
 
         markedRenderer.listitem = function(text) {
+            
+            var isTeXInline     = /\$(.*)\$/g.test(text);
+            if (isTeXInline) 
+            {
+                text = text.replace(/(\$([^\$]*)\$)+/g, function($1, $2) {
+                    var x=new RegExp("<em>","g"); $1=$1.replace(x,"_"); $2=$2.replace(x,"_");
+                    x=new RegExp("</em>","g"); $1=$1.replace(x,"_"); $2=$2.replace(x,"_");
+                    return "<span class=\"" + editormd.classNames.tex + "\">" + $2.replace(/\$/g, "") + "</span>";
+                });
+            } 
+
             if (settings.taskList && /^\s*\[[x\s]\]\s*/.test(text)) 
             {
                 text = text.replace(/^\s*\[\s\]\s*/, "<input type=\"checkbox\" class=\"task-list-item-checkbox\" /> ")
@@ -3895,23 +3925,23 @@
         var defaults = {
             gfm                  : true,
             toc                  : true,
-            tocm                 : false,
+            tocm                 : true,
             tocStartLevel        : 1,
             tocTitle             : "目录",
-            tocDropdown          : false,
+            tocDropdown          : true,
             tocContainer         : "",
             markdown             : "",
-            markdownSourceCode   : false,
-            htmlDecode           : false,
+            markdownSourceCode   : true,
+            htmlDecode           : true,
             autoLoadKaTeX        : true,
             pageBreak            : true,
             atLink               : true,    // for @link
             emailLink            : true,    // for mail address auto link
-            tex                  : false,
-            taskList             : false,   // Github Flavored Markdown task lists
-            emoji                : false,
-            flowChart            : false,
-            sequenceDiagram      : false,
+            tex                  : true,
+            taskList             : true,   // Github Flavored Markdown task lists
+            emoji                : true,
+            flowChart            : true,
+            sequenceDiagram      : true,
             previewCodeHighlight : true
         };
         
@@ -3920,12 +3950,12 @@
         var div           = $("#" + id);
         var settings      = div.settings = $.extend(true, defaults, options || {});
         var saveTo        = div.find("textarea");
-        
+
         if (saveTo.length < 1)
         {
             div.append("<textarea></textarea>");
             saveTo        = div.find("textarea");
-        }        
+        }
         
         var markdownDoc   = (settings.markdown === "") ? saveTo.val() : settings.markdown; 
         var markdownToC   = [];
@@ -3969,7 +3999,7 @@
         }
         
         div.addClass("markdown-body " + this.classPrefix + "html-preview").append(markdownParsed);
-        
+
         var tocContainer = (settings.tocContainer !== "") ? $(settings.tocContainer) : div;
         
         if (settings.tocContainer !== "")
@@ -4011,10 +4041,18 @@
 
         if (settings.tex)
         {
+            function HTMLDecode(text) { 
+                var temp = document.createElement("div"); 
+                temp.innerHTML = text; 
+                var output = temp.innerText || temp.textContent; 
+                temp = null; 
+                return output; 
+            } 
+            
             var katexHandle = function() {
                 div.find("." + editormd.classNames.tex).each(function(){
-                    var tex  = $(this);                    
-                    katex.render(tex.html().replace(/&lt;/g, "<").replace(/&gt;/g, ">"), tex[0]);                    
+                    var tex  = $(this);
+                    katex.render(HTMLDecode(tex.html()), tex[0]);                    
                     tex.find(".katex").css("font-size", "1.6em");
                 });
             };
@@ -4103,6 +4141,9 @@
      */
     
     editormd.loadCSS   = function(fileName, callback, into) {
+        callback=callback || function(){};
+        callback(); return;
+
         into       = into     || "head";        
         callback   = callback || function() {};
         
@@ -4110,16 +4151,16 @@
         css.type   = "text/css";
         css.rel    = "stylesheet";
         css.onload = css.onreadystatechange = function() {
-            editormd.loadFiles.css.push(fileName);
+            // editormd.loadFiles.css.push(fileName);
             callback();
         };
 
-        css.href   = fileName + ".css";
+        // css.href   = fileName + ".css";
 
         if(into === "head") {
-            document.getElementsByTagName("head")[0].appendChild(css);
+            // document.getElementsByTagName("head")[0].appendChild(css);
         } else {
-            document.body.appendChild(css);
+            // document.body.appendChild(css);
         }
     };
     
@@ -4136,7 +4177,9 @@
      */
 
     editormd.loadScript = function(fileName, callback, into) {
-        
+        callback=callback || function(){};
+        callback(); return;
+
         into          = into     || "head";
         callback      = callback || function() {};
         
@@ -4154,7 +4197,7 @@
                     if (script.readyState === "loaded" || script.readyState === "complete") 
                     {
                         script.onreadystatechange = null; 
-                        editormd.loadFiles.js.push(fileName);
+                        // editormd.loadFiles.js.push(fileName);
                         callback();
                     }
                 } 
@@ -4163,15 +4206,15 @@
         else
         {
             script.onload = function() {
-                editormd.loadFiles.js.push(fileName);
+                // editormd.loadFiles.js.push(fileName);
                 callback();
             };
         }
 
         if (into === "head") {
-            document.getElementsByTagName("head")[0].appendChild(script);
+            // document.getElementsByTagName("head")[0].appendChild(script);
         } else {
-            document.body.appendChild(script);
+            // document.body.appendChild(script);
         }
     };
     
@@ -4206,7 +4249,7 @@
      */
     
     editormd.lockScreen = function(lock) {
-        $("html,body").css("overflow", (lock) ? "hidden" : "");
+        // $("html,body").css("overflow", (lock) ? "hidden" : "");
     };
         
     /**
@@ -4279,7 +4322,7 @@
         dialog.lockScreen = function(lock) {
             if (options.lockScreen)
             {                
-                $("html,body").css("overflow", (lock) ? "hidden" : "");
+                // $("html,body").css("overflow", (lock) ? "hidden" : "");
                 $this.resize();
             }
 
