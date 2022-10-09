@@ -132,6 +132,7 @@
                     contentType:false,
                     success:function(message) {
 			console.log(message);
+			sha = message["content"]["sha"];
                         layer.msg("Save Successfully!");
                     },
                     error:function(jqXHR,textStatus,errorThrown)
