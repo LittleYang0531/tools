@@ -105,7 +105,7 @@
                 onedit=path;var url="https://api.github.com/";
 		sha = GetFileSHA(REPO,onedit);
                 document.getElementById("title").innerHTML=onedit;
-                var markdown=SendAjax("https://api.github.com/repos/"+USER+"/"+REPO+"/contents"+path)["content"];
+                var markdown=SendAjax("https://api.github.com/repos/"+USER+"/"+REPO+"/contents"+path, 'GET', null, false)["content"];
                 markdown=Base64.decode(markdown);
                 editor.setMarkdown(markdown);
             }
