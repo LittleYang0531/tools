@@ -4151,16 +4151,16 @@
         css.type   = "text/css";
         css.rel    = "stylesheet";
         css.onload = css.onreadystatechange = function() {
-            // editormd.loadFiles.css.push(fileName);
+            editormd.loadFiles.css.push(fileName);
             callback();
         };
 
-        // css.href   = fileName + ".css";
+        css.href   = fileName + ".css";
 
         if(into === "head") {
-            // document.getElementsByTagName("head")[0].appendChild(css);
+            document.getElementsByTagName("head")[0].appendChild(css);
         } else {
-            // document.body.appendChild(css);
+            document.body.appendChild(css);
         }
     };
     
@@ -4197,7 +4197,7 @@
                     if (script.readyState === "loaded" || script.readyState === "complete") 
                     {
                         script.onreadystatechange = null; 
-                        // editormd.loadFiles.js.push(fileName);
+                        editormd.loadFiles.js.push(fileName);
                         callback();
                     }
                 } 
@@ -4206,15 +4206,15 @@
         else
         {
             script.onload = function() {
-                // editormd.loadFiles.js.push(fileName);
+                editormd.loadFiles.js.push(fileName);
                 callback();
             };
         }
 
         if (into === "head") {
-            // document.getElementsByTagName("head")[0].appendChild(script);
+            document.getElementsByTagName("head")[0].appendChild(script);
         } else {
-            // document.body.appendChild(script);
+            document.body.appendChild(script);
         }
     };
     
@@ -4225,7 +4225,7 @@
         js  : "//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min"
     };
     
-    editormd.kaTeXLoaded = true;
+    editormd.kaTeXLoaded = false;
     
     /**
      * 加载KaTeX文件
