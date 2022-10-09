@@ -41,7 +41,7 @@ function SendAjax(url,method,data,async,callback) {
 		processData:false,
 		contentType:false,
 		success:function(message) {
-			callback();
+			if (callback != undefined && callback != null) callback();
 			console.log(message);
 			res=message;
 		}, 
