@@ -29,10 +29,10 @@ var headers= {
 // ****************************************************
 
 // Send Ajax Request
-function SendAjax(url,method,data) {
+function SendAjax(url,method,data,async,callback) {
 	var res;
 	$.ajax({
-		async:false,
+		async:async,
 		url:url,
 		type:method,
 		data:data,
@@ -41,11 +41,13 @@ function SendAjax(url,method,data) {
 		processData:false,
 		contentType:false,
 		success:function(message) {
+			callback();
 			console.log(message);
 			res=message;
-		},
+		}, 
 		error:function(jqXHR,textStatus,errorThrown)
 		{
+			alert("Failed to fetch data! url: " + url);
 			console.log(jqXHR.responseText);
 			console.log(jqXHR.status);
 			console.log(jqXHR.readyState);
@@ -61,14 +63,14 @@ function SendAjax(url,method,data) {
 // Get Repositories under the USER
 function GetRepos() {
 	var url="https://api.github.com/users/"+USER+"/repos";
-	var obj=SendAjax(url,'GET',null);
+	var obj=SendAjax(url,'GET',null,false);
 	return obj;
 }
 
 // Get File's SHA from Github
 function GetFileSHA(repo,path) {
 	var url="https://api.github.com/repos/"+USER+"/"+repo+"/contents"+path;
-	var sha=SendAjax(url,"GET",null);
+	var sha=SendAjax(url,"GET",null,false);
 	return sha==null?null:sha["sha"];
 }
 
@@ -115,8 +117,7 @@ class UploadGithub {
 		var data={message:"Upload By "+USER,committer:{name:USER,email:MAIL},content:(content.split(","))[1]};
 		data=JSON.stringify(data);
 				
-		if (SendAjax(url,'PUT',data)!=null) alert("Upload Successfully!");
-		else alert("Upload Failed!");
+		SendAjax(url,'PUT',data,true,function(){alert("Upload Successfully!");});
 	}
 
 	static CreateFile(repo,path) {
@@ -125,8 +126,7 @@ class UploadGithub {
 		var data={message:"Upload By "+USER,committer:{name:USER,email:MAIL},content:""};
 		data=JSON.stringify(data);
 
-		if (SendAjax(url,'PUT',data)!=null) alert("Create Successfully!");
-		else alert("Create Failed!");
+		SendAjax(url,'PUT',data,true,function(){alert("Create Successfully!");});
 	}
 
 	static UploadFile(content,repo,path) {
@@ -134,9 +134,8 @@ class UploadGithub {
 				
 		var data={message:"Upload By "+USER,committer:{name:USER,email:MAIL},content:content,sha:GetFileSHA(repo,path)};
 		data=JSON.stringify(data);
-				
-		if (SendAjax(url,'PUT',data)!=null) alert("Upload Successfully!");
-		else alert("Upload Failed!");
+		
+		SendAjax(url,'PUT',data,true,function(){alert("Upload Successfully!");});
 	}
 }
 
