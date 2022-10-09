@@ -203,7 +203,7 @@ class GetFromGithub {
 
 	static GetFileArrayFull(repo) {
 		var url="https://api.github.com/repos/"+USER+"/"+repo+"/git/trees/"+BRANCH+"?recursive=1";
-		return SendAjax(url,'GET',null);
+		return SendAjax(url,'GET',null,false);
 	}
 	static GetFile(repo,path) {
 		var url="https://api.github.com/repos/"+USER+"/"+repo+"/contents"+path;
@@ -211,7 +211,7 @@ class GetFromGithub {
 		var result="<h2><a href='//github.com/"+USER+"'>"+USER+"</a> / "+
 		"<a href='//github.com/"+USER+"/"+repo+"'>"+repo+"</a> - "+path+"</h2>";
 		
-		var res=SendAjax(url,'GET',null);
+		var res=SendAjax(url,'GET',null,false);
 		console.log(res);
 		if (res==null) return alert("Get File Failed!"),result;
 		for (var i=0;i<res.length;i++) {
