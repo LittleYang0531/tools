@@ -135,7 +135,7 @@ class UploadGithub {
 		var data={message:"Upload By "+USER,committer:{name:USER,email:MAIL},content:content,sha:GetFileSHA(repo,path)};
 		data=JSON.stringify(data);
 		
-		if (SendAjax(url, 'PUT', data, false) != null) alert("Create Successfully!");
+		SendAjax(url,'PUT',data,true,function(){alert("Upload Successfully!");});
 	}
 }
 
