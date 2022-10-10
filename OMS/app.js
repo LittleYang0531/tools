@@ -126,7 +126,7 @@ class UploadGithub {
 		var data={message:"Upload By "+USER,committer:{name:USER,email:MAIL},content:""};
 		data=JSON.stringify(data);
 
-		SendAjax(url,'PUT',data,true,function(){alert("Create Successfully!");});
+		if (SendAjax(url,'PUT',data,false) != null) alert("Create Successfully!");
 	}
 
 	static UploadFile(content,repo,path) {
@@ -135,7 +135,7 @@ class UploadGithub {
 		var data={message:"Upload By "+USER,committer:{name:USER,email:MAIL},content:content,sha:GetFileSHA(repo,path)};
 		data=JSON.stringify(data);
 		
-		SendAjax(url,'PUT',data,true,function(){alert("Upload Successfully!");});
+		if (SendAjax(url, 'PUT', data, false)) alert("Create Successfully!");
 	}
 }
 
