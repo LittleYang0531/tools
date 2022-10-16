@@ -92,13 +92,13 @@
                 if (arr[arr.length-1]!="md") filename+=".md";
                 console.log(path+filename);
                 UploadGithub.CreateFile(REPO,path+filename);
-		var branches = $("<li><span class='file' id='" + path + filename + "-name'>" +
-				"<f onclick='edit(\"" + path + filename + "\")'>" + filename + "</f>" +
-				"</span></li>").appendTo("#" + path.replace(/\//g, "\\/") + "\\-div");
-		$("#folder-tree").treeview({
-                    add: branches,
-                });
-                // location.reload(); 
+// 		var branches = $("<li><span class='file' id='" + path + filename + "-name'>" +
+// 				"<f onclick='edit(\"" + path + filename + "\")'>" + filename + "</f>" +
+// 				"</span></li>").appendTo("#" + path.replace(/\//g, "\\/") + "\\-div");
+// 		$("#folder-tree").treeview({
+//                     add: branches,
+//                 });
+                location.reload(); 
 		return false;
             }
             function createFolder(path) {
