@@ -231,3 +231,65 @@ class GetFromGithub {
 		return result;
 	}
 }
+
+
+// ****************************************************
+// Class Name: LoginGithub
+// Class Module: login
+// Class Features: Get Login Info from Github
+// ****************************************************
+class LoginGithub {
+	static LoginProcess() {
+		var url="https://cors.littleyang0531.workers.dev/?https://github.com/login/oauth/access_token?client_id="+client_id+"&client_secret="+client_secret+"&code="+$_GET["code"]+"";
+		var content=SendAjax(url,"GET",null,{Accept:"application/json"});
+		if (content==null) {
+			alert("获取用户令牌失败!");
+			return false;
+		}
+		setCookie("access_token",content["access_token"],30*24*60*60);
+		// console.log(content["access_token"]);
+		location.replace(window.location.href.split('?')[0]);
+	}
+
+	static LoginModule() {
+		var url="https://github.com/login/oauth/authorize?client_id="+client_id+"&scope=user";
+		location.replace(url);
+		return false;
+	}
+
+	static Login() {
+		if ($_GET["code"]!=undefined&&$_COOKIE["access_token"]==undefined) this.LoginProcess();
+		else if ($_COOKIE["access_token"]!=undefined) return true;
+		else this.LoginModule();
+	}
+
+	static CheckAuthor() {
+		var url="https://api.github.com/user";
+        var header={"Authorization":'token '+$_COOKIE["access_token"]};
+        var loginname=SendAjax(url,"GET",null,header);
+        if (loginname==null) {
+            setCookie("access_token","",-100);
+            location.replace(window.location.href.split('?')[0]);
+        }loginname=loginname["login"];
+        var header={"Authorization":'token '+TOKEN};
+        var adminname=SendAjax(url,"GET",null,header)["login"];
+        return {login:loginname,admin:adminname};
+	}
+
+	static Logout() {
+		setCookie("access_token","",-100);
+		location.replace(window.location.href.split('?')[0]);
+	}
+
+	static CheckLoginState() {
+		if ($_COOKIE["access_token"]==undefined) return false;
+		var url="https://api.github.com/user";
+        var header={"Authorization":'token '+$_COOKIE["access_token"]};
+        var loginname=SendAjax(url,"GET",null,header);
+        if (loginname==null) {
+            setCookie("access_token","",-100);
+            return false;
+        }
+		return true;
+	}
+}
