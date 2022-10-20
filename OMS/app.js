@@ -294,13 +294,13 @@ class LoginGithub {
 	static CheckAuthor() {
 		var url="https://api.github.com/user";
         var header={"Authorization":'token '+$_COOKIE["access_token"]};
-        var loginname=SendAjax(url,"GET",null,false,null);
+        var loginname=SendAjax(url,"GET",null,false,null,header);
         if (loginname==null) {
             setCookie("access_token","",-100);
             location.replace(window.location.href.split('?')[0]);
         }loginname=loginname["login"];
         var header={"Authorization":'token '+TOKEN};
-        var adminname=SendAjax(url,"GET",null,false,null)["login"];
+        var adminname=SendAjax(url,"GET",null,false,null,header)["login"];
         return {login:loginname,admin:adminname};
 	}
 
