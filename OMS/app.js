@@ -268,7 +268,7 @@ class GetFromGithub {
 // ****************************************************
 class LoginGithub {
 	static LoginProcess() {
-		var url="https://cors.littleyang0531.workers.dev/?https://github.com/login/oauth/access_token?client_id="+client_id+"&client_secret="+client_secret+"&code="+$_GET["code"]+"";
+		var url="https://cors.littleyang.ml/?https://github.com/login/oauth/access_token?client_id="+client_id+"&client_secret="+client_secret+"&code="+$_GET["code"]+"";
 		var content=SendAjax(url,"GET",null,{Accept:"application/json"});
 		if (content==null) {
 			alert("获取用户令牌失败!");
