@@ -41,7 +41,7 @@ function flushCookie() {
 		}
 	})();
 }
-var default_headers= {
+var headers= {
 	"Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
 	"Accept-Language":"zh-CN,en-US;q=0.7,en;q=0.3",
 	"Authorization":'token '+TOKEN,
@@ -57,14 +57,14 @@ var default_headers= {
 // ****************************************************
 
 // Send Ajax Request
-function SendAjax(url,method,data,async,callback,headers=default_headers) {
+function SendAjax(url,method,data,async,callback,header=headers) {
 	var res;
 	$.ajax({
 		async:async,
 		url:url,
 		type:method,
 		data:data,
-		headers:headers,
+		headers:header,
 		cache:false,
 		processData:false,
 		contentType:false,
