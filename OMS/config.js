@@ -5,4 +5,4 @@ const REPO="markdown-server";
 const BRANCH="main";
 
 const client_id="c233c1241ba58c1ea3dc";
-const client_secret="01ca114a9aac1e8d1630b749a25ed466b163fbf4";
+const client_secret="220f3c981ad51dddd6bcfcc628049cbbe24b840c";
