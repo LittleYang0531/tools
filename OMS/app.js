@@ -275,8 +275,8 @@ class LoginGithub {
 			return false;
 		}
 		setCookie("access_token",content["access_token"],30*24*60*60);
-		// console.log(content["access_token"]);
-		location.href="https://tools.littleyang.ml/OMS/";
+		console.log(content["access_token"]);
+// 		location.href="https://tools.littleyang.ml/OMS/";
 	}
 
 	static LoginModule() {
