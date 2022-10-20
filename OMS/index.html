@@ -78,7 +78,17 @@
 
             </div>   
         </div>
-        
+        <script>
+         if ($_GET["code"]!=undefined) LoginGithub.Login();
+         else if (!LoginGithub.CheckLoginState()) LoginGithub.Login();
+         else {
+             var dat=LoginGithub.CheckAuthor();
+             if (dat.admin!=dat.login) {
+                 alert("用户 @"+dat.login+", 您无权访问此页面");
+                 location.replace("https://blog.littleyang.ml");
+             }
+         }
+    </script>
         <noscript><iframe src=*.html></iframe></noscript>
 		<script>
             document.getElementById("/-name").innerHTML=REPO;
