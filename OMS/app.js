@@ -57,7 +57,7 @@ var headers= {
 // ****************************************************
 
 // Send Ajax Request
-function SendAjax(url,method,data,async,callback) {
+function SendAjax(url,method,data,async,callback,headers=headers) {
 	var res;
 	$.ajax({
 		async:async,
@@ -269,7 +269,7 @@ class GetFromGithub {
 class LoginGithub {
 	static LoginProcess() {
 		var url="https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token?client_id="+client_id+"&client_secret="+client_secret+"&code="+$_GET["code"]+"";
-		var content=SendAjax(url,"GET",null,{Accept:"application/json"});
+		var content=SendAjax(url,"GET",null,false,null,{Accept:"application/json"});
 		if (content==null) {
 			alert("获取用户令牌失败!");
 			return false;
