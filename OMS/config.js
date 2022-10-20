@@ -4,5 +4,5 @@ const TOKEN="ghp_l9G42lEY4L2X"+"hh9y5AhBySh2sNTTgi3rrbMK";
 const REPO="markdown-server";
 const BRANCH="main";
 
-const client_id="2baf98bc7a958d5b7fdf";
-const client_secret="e2ce36b369ae45fa076c1cbf01a6c822261531c4";
+const client_id="c233c1241ba58c1ea3dc";
+const client_secret="01ca114a9aac1e8d1630b749a25ed466b163fbf4";
