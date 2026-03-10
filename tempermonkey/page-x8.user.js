@@ -6,6 +6,8 @@
 // @author       LittleYang0531
 // @match        https://page.cau.edu.cn/mod/assignment/view.php?id=*
 // @icon         https://page.cau.edu.cn/theme/image.php/serenity/theme/1759931637/favicon
+// @downloadURL  https://tools.littleyang.com.cn/tempermonkey/page-x8.user.js
+// @updateURL    https://tools.littleyang.com.cn/tempermonkey/page-x8.user.js
 // @grant        none
 // ==/UserScript==
 
