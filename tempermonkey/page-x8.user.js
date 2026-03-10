@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         学吧快速提交代码
 // @namespace    http://tampermonkey.net/
-// @version      2026-03-10
+// @version      2026-03-10-patch1
 // @description  使学吧可以直接提交代码，不需要拖动文件
 // @author       LittleYang0531
 // @match        https://page.cau.edu.cn/mod/assignment/view.php?id=*
@@ -80,7 +80,7 @@ function newSubstr(str, start, end) {
             { title: "Python（Python, Python3, vPython）", type: "text/x-python", name: "main.py", keywords: [ "Python" ] },
             { title: "C/C++（TDM-GCC, VC, g++, VS）", type: "text/x-c", name: "main.cpp", keywords: [ "C and C++" ] },
             { title: "C#（VS, mono）", type: "text/x-csharp", name: "main.cs", keywords: [ "C#" ] },
-            { title: "Java（JDK, openJDK）", type: "text/x-java", name: "main.java", keywords: [ "Java" ] }
+            { title: "Java（JDK, openJDK）", type: "text/x-java", name: "Main.java", keywords: [ "Java" ] }
         ];
         var innerDiv = document.createElement("div");
         innerDiv.style = "display: flex; width: 100%; align-items: center; justify-content; center;";
