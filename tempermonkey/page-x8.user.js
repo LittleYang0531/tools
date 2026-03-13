@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         学吧快速提交代码
 // @namespace    http://tampermonkey.net/
-// @version      1.0.1
+// @version      1.0.2
 // @description  使学吧可以直接提交代码，不需要拖动文件
 // @author       LittleYang0531
 // @match        https://page.cau.edu.cn/mod/assignment/view.php?id=*
@@ -58,7 +58,7 @@ function newSubstr(str, start, end) {
             }
             file = await (await fetch(fileurl)).text();
             console.log(file);
-        } else if (title == "上传一个文件") {
+        } else if (title == "上传一个文件" || title == "更新此文件") {
             clearInterval(E);
             return;
         } else {
