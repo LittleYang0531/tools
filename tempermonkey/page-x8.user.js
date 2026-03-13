@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         学吧快速提交代码
 // @namespace    http://tampermonkey.net/
-// @version      v1.0.0
+// @version      1.0.1
 // @description  使学吧可以直接提交代码，不需要拖动文件
 // @author       LittleYang0531
 // @match        https://page.cau.edu.cn/mod/assignment/view.php?id=*
@@ -58,6 +58,9 @@ function newSubstr(str, start, end) {
             }
             file = await (await fetch(fileurl)).text();
             console.log(file);
+        } else if (title == "上传一个文件") {
+            clearInterval(E);
+            return;
         } else {
             alert("Error: Cannot found submit button");
             clearInterval(E);
@@ -72,15 +75,15 @@ function newSubstr(str, start, end) {
         var oldE = main.children[main.children.length - 1];
         main.children[main.children.length - 1].remove();
         var newDiv = document.createElement("div");
-        newDiv.style = "display: flex; flex-direction: column; align-items: center; justify-content: center; width: 50%; margin: auto";
+        newDiv.style = "display: flex; flex-direction: column; align-items: center; justify-content: center; width: calc(50% - 20px); margin: auto";
         newDiv.id = "intro";
 
         var compiler = document.getElementById("assignment_onlinejudge_information").children[0].children[0].children[1].innerHTML;
         const config = [
-            { title: "Python（Python, Python3, vPython）", type: "text/x-python", name: "main.py", keywords: [ "Python" ] },
-            { title: "C/C++（TDM-GCC, VC, g++, VS）", type: "text/x-c", name: "main.cpp", keywords: [ "C and C++" ] },
-            { title: "C#（VS, mono）", type: "text/x-csharp", name: "main.cs", keywords: [ "C#" ] },
-            { title: "Java（JDK, openJDK）", type: "text/x-java", name: "Main.java", keywords: [ "Java" ] }
+            { title: "Python（Python, Python3, vPython）", type: "text/x-python", name: "main.py", keywords: [ "Python" ], language: "python" },
+            { title: "C/C++（TDM-GCC, VC, g++, VS）", type: "text/x-c", name: "main.cpp", keywords: [ "C and C++" ], language: "cpp" },
+            { title: "C#（VS, mono）", type: "text/x-csharp", name: "main.cs", keywords: [ "C#" ], language: "csharp" },
+            { title: "Java（JDK, openJDK）", type: "text/x-java", name: "Main.java", keywords: [ "Java" ], language: "java" }
         ];
         var innerDiv = document.createElement("div");
         innerDiv.style = "display: flex; width: 100%; align-items: center; justify-content; center;";
@@ -102,9 +105,39 @@ function newSubstr(str, start, end) {
         innerDiv.appendChild(span);
         innerDiv.appendChild(select);
 
-        var textarea = document.createElement("textarea");
-        textarea.value = file;
-        textarea.style = "width: calc(100% - 8px); height: 300px; margin-top: 8px; resize: none; font-family: 'Cascadia Mono', monospace; padding: 4px;";
+        var div2 = document.createElement("div");
+        div2.style = "width: 100%; height: 300px; margin-top: 8px;";
+        let script = document.createElement('script');
+        script.setAttribute('type', 'text/javascript');
+        script.src = "https://unpkg.com/monaco-editor@latest/min/vs/loader.js";
+        document.head.appendChild(script);
+        let editor = null;
+        script.onload = () => {
+            require.config({
+                paths: { 'vs': 'https://unpkg.com/monaco-editor@latest/min/vs' }
+            });
+            // require.config({ 'vs/nls': { availableLanguages: { '*': "zh-cn" } } });
+            window.MonacoEnvironment = { getWorkerUrl: () => proxy };
+
+            let proxy = URL.createObjectURL(new Blob([`
+	self.MonacoEnvironment = {
+		baseUrl: 'https://unpkg.com/monaco-editor@latest/min/'
+	};
+	importScripts('https://unpkg.com/monaco-editor@latest/min/vs/base/worker/workerMain.js');
+`], { type: 'text/javascript' }));
+
+            require(["vs/editor/editor.main"], function () {
+                editor = monaco.editor.create(div2, {
+                    value: file,
+                    language: config[select.value].language,
+                    theme: 'vs-dark'
+                });
+            });
+        };
+        select.oninput = () => {
+            monaco.editor.setModelLanguage(editor.getModel(), config[select.value].language);
+            editor.layout();
+        };
         var newSubmit = document.createElement("button");
         newSubmit.innerHTML = "提交代码";
         newSubmit.style = "margin-top: 8px;";
@@ -165,7 +198,7 @@ function newSubstr(str, start, end) {
         }
 
         newDiv.appendChild(innerDiv);
-        newDiv.appendChild(textarea);
+        newDiv.appendChild(div2);
         newDiv.appendChild(newSubmit);
         main.appendChild(newDiv);
         // main.appendChild(oldE);
