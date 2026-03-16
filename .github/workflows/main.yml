@@ -1,0 +1,14 @@
+name: test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions: read-all
+    steps:
+    - uses: actions/checkout@v4
+    - name: Deploy
+      run: |
+        curl https://server.littleyang.com.cn/ascas/deploy -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -sN
