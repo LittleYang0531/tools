@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         学吧快速提交代码
 // @namespace    http://tampermonkey.net/
-// @version      1.0.2
+// @version      1.0.3
 // @description  使学吧可以直接提交代码，不需要拖动文件
 // @author       LittleYang0531
 // @match        https://page.cau.edu.cn/mod/assignment/view.php?id=*
@@ -169,7 +169,7 @@ function newSubstr(str, start, end) {
             }
 
             // 上传新文件
-            var content = textarea.value;
+            var content = editor.getValue();
             var type = config[select.value].type;
             var title = config[select.value].name;
             var formData = new FormData();
