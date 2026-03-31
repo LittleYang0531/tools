@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         学吧快速提交代码
 // @namespace    http://tampermonkey.net/
-// @version      1.0.3
+// @version      1.0.4
 // @description  使学吧可以直接提交代码，不需要拖动文件
 // @author       LittleYang0531
 // @match        https://page.cau.edu.cn/mod/assignment/view.php?id=*
@@ -16,12 +16,8 @@ function newSubstr(str, start, end) {
     var endPos = str.indexOf(end, startPos);
     return str.substr(startPos, endPos - startPos);
 }
-/* function newSubstrLast(str, start, end) {
-    var endPos = str.lastIndexOf(end);
-    var startPos = str.lastIndexOf(start, endPos) + start.length;
-    return str.substr(startPos, endPos - startPos);
-} */
 
+// 主程序
 (function() {
     'use strict';
 
@@ -204,5 +200,42 @@ function newSubstr(str, start, end) {
         // main.appendChild(oldE);
         clearInterval(E);
     }, 500);
-    // Your code here...
+})();
+
+// 防止更新
+(function(){
+    setTimeout(() => {
+        window.myrefresh = () => {};
+        var main = document.getElementById("region-main").children[0].children[0];
+        main.innerHTML = main.innerHTML.replace("--------------------------------Please wait for about 10 seconds to see your grade!------------------------------------------", "");
+    }, 100);
+})();
+
+// 更新评测状态
+(function(){
+    var first = true;
+    var E = setInterval(async () => {
+        var main = document.getElementById("region-main").children[0].children[0];
+        if (main.innerText.indexOf("评测中...") == -1 && main.innerText.indexOf("等待评测...") == -1) {
+            clearInterval(E);
+            return;
+        }
+        if (first) {
+            window.scrollTo(0, 100000);
+            first = false;
+        }
+        var res = await (await fetch(location.href)).text();
+        var doc = document.createElement("div");
+        doc.innerHTML = res;
+
+        main.getElementsByClassName("box generalbox boxaligncenter")[2].innerHTML = doc.getElementsByClassName("box generalbox boxaligncenter")[2].innerHTML;
+        main.getElementsByClassName("feedback")[0].innerHTML = doc.getElementsByClassName("feedback")[0].innerHTML;
+        document.getElementById("userfiles").outerHTML = doc.getElementsByClassName("box files")[0].parentElement.outerHTML;
+
+        var ended = res.indexOf("评测中...") == -1 && res.indexOf("等待评测...") == -1;
+        if (ended) {
+            clearInterval(E);
+            return;
+        }
+    }, 1000);
 })();
