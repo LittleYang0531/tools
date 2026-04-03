@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         学吧快速提交代码
 // @namespace    http://tampermonkey.net/
-// @version      1.0.4
+// @version      1.0.4.1
 // @description  使学吧可以直接提交代码，不需要拖动文件
 // @author       LittleYang0531
 // @match        https://page.cau.edu.cn/mod/assignment/view.php?id=*
@@ -229,7 +229,7 @@ function newSubstr(str, start, end) {
         doc.innerHTML = res;
 
         main.getElementsByClassName("box generalbox boxaligncenter")[2].innerHTML = doc.getElementsByClassName("box generalbox boxaligncenter")[2].innerHTML;
-        main.getElementsByClassName("feedback")[0].innerHTML = doc.getElementsByClassName("feedback")[0].innerHTML;
+        // main.getElementsByClassName("feedback")[0].innerHTML = doc.getElementsByClassName("feedback")[0].innerHTML;
         document.getElementById("userfiles").outerHTML = doc.getElementsByClassName("box files")[0].parentElement.outerHTML;
 
         var ended = res.indexOf("评测中...") == -1 && res.indexOf("等待评测...") == -1;
